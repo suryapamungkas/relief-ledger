@@ -1,0 +1,11 @@
+{
+  "chainId": 11155111,
+  "network": "sepolia",
+  "deployed": false,
+  "deployBlock": 0,
+  "contracts": {
+    "MockUSDC": "0x0000000000000000000000000000000000000000",
+    "ReliefLedger": "0x0000000000000000000000000000000000000000"
+  },
+  "note": "Testnet prototype placeholders. Populate via contracts/script/Deploy.s.sol when broadcasting to Sepolia."
+}

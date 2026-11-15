@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build
+dist/
+out/
+build/
+cache/
+
+# Foundry
+contracts/cache/
+contracts/out/
+contracts/broadcast/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Debug
+npm-debug.log*
+pnpm-debug.log*
+
+# Vercel
+.vercel
+
+# Indexer SQLite / Ponder
+indexer/.ponder/
+*.db
+*.db-wal
+*.db-shm
+
+# Coverage
+lcov.info
+coverage/
+
+# TypeScript incremental cache
+*.tsbuildinfo

@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ─── */
+@theme {
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+  --color-brand-900: #134e4a;
+  --color-brand-950: #042f2e;
+
+  --color-accent-400: #34d399;
+  --color-accent-500: #10b981;
+
+  --color-surface-0: #020617;
+  --color-surface-50: #0f172a;
+  --color-surface-100: #1e293b;
+  --color-surface-200: #334155;
+  --color-surface-300: #475569;
+
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ─── Base & Accessibility ─── */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-surface-0);
+  font-family: var(--font-display);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--color-brand-500);
+  color: #020617;
+  font-weight: 700;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-400);
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid Highlight;
+  }
+}
+
+/* ─── Glass cards & glows ─── */
+.glass {
+  background: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.glass-hover {
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-hover:hover {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(45, 212, 191, 0.35);
+}
+
+.glow-brand {
+  box-shadow: 0 0 40px rgba(13, 148, 136, 0.16), 0 0 80px rgba(13, 148, 136, 0.06);
+}
+
+.glow-sm {
+  box-shadow: 0 0 22px rgba(20, 184, 166, 0.12);
+}
+
+/* ─── Shimmer skeleton ─── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-100) 25%,
+    var(--color-surface-200) 50%,
+    var(--color-surface-100) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+/* ─── Gradient mesh background ─── */
+.mesh-gradient {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(13, 148, 136, 0.16) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(16, 185, 129, 0.11) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 45%, rgba(6, 95, 70, 0.06) 0%, transparent 70%);
+}
+
+/* ─── Form validation after user interaction ─── */
+.rl-input {
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.rl-input:user-invalid,
+.rl-input[aria-invalid="true"] {
+  border-color: rgb(244 63 94 / 0.8);
+  box-shadow: 0 0 0 3px rgb(244 63 94 / 0.14);
+}
+
+.rl-input:user-valid:not([aria-invalid="true"]) {
+  border-color: rgb(20 184 166 / 0.55);
+}
+
+/* ─── Native top-layer <dialog> modal animations ─── */
+dialog.rl-dialog {
+  margin: auto;
+  padding: 0;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 1.25rem;
+  background: rgba(15, 23, 42, 0.96);
+  color: #f1f5f9;
+  max-width: min(34rem, calc(100vw - 2rem));
+  width: 100%;
+  box-shadow: 0 24px 64px rgba(2, 6, 23, 0.75);
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+  transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+dialog.rl-dialog:modal {
+  overscroll-behavior: contain;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@starting-style {
+  dialog.rl-dialog:modal {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+}
+
+dialog.rl-dialog::backdrop {
+  background: rgba(2, 6, 23, 0.72);
+  backdrop-filter: blur(8px);
+  overscroll-behavior: contain;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+dialog.rl-dialog:modal::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  dialog.rl-dialog:modal::backdrop {
+    opacity: 0;
+  }
+}
+
+dialog.rl-dialog.is-closing,
+dialog.rl-dialog.is-closing::backdrop {
+  opacity: 0;
+}
+
+dialog.rl-dialog.is-closing {
+  transform: translateY(10px) scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.rl-dialog,
+  dialog.rl-dialog::backdrop {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ─── Accessible Responsive Table Container ─── */
+.rl-table-region {
+  container-type: inline-size;
+  overflow-x: auto;
+}
+
+.rl-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+@container (width < 620px) {
+  .rl-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .rl-table tr {
+    display: grid;
+    gap: 0.375rem;
+    padding: 0.875rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    border-radius: 0.875rem;
+    background: rgba(15, 23, 42, 0.55);
+  }
+
+  .rl-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.2rem 0;
+    border: 0;
+    text-align: right;
+  }
+
+  .rl-table td::before {
+    content: attr(data-label);
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: left;
+  }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface-0); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-200);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-300);
+}
