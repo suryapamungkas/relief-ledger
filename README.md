@@ -46,11 +46,11 @@ graph TB
 ```mermaid
 stateDiagram-v2
     [*] --> Fundraising: createCampaign()
-    Fundraising --> Active: finalizeFundraising() [raised >= minGoal]
-    Fundraising --> Refunding: finalizeFundraising() [raised < minGoal]
-    Active --> Active: proposePayout() -> approvePayout() -> executePayout() -> submitDelivery()
-    Active --> Refunding: triggerStallRefund() [now > lastProgressAt + stallTimeout]
-    Active --> Completed: submitDelivery() [last milestone; unspent -> refundPool]
+    Fundraising --> Active: finalizeFundraising()<br/>raised >= minGoal
+    Fundraising --> Refunding: finalizeFundraising()<br/>raised < minGoal
+    Active --> Active: proposePayout() → approvePayout()<br/>executePayout() → submitDelivery()
+    Active --> Refunding: triggerStallRefund()<br/>now > lastProgressAt + stallTimeout
+    Active --> Completed: submitDelivery()<br/>final milestone (unspent → refundPool)
     Refunding --> Refunding: claimRefund() (pro-rata)
     Completed --> Completed: claimRefund() (if refundPool > 0)
 ```
