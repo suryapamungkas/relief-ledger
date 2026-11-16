@@ -14,7 +14,7 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col mesh-gradient bg-slate-950 text-slate-100">
+      <div className="min-h-screen flex flex-col mesh-gradient bg-brand-50 text-slate-900">
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>

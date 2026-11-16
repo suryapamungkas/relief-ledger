@@ -71,13 +71,13 @@ export function Modal({
       }}
     >
       <div className="p-6">
-        <div className="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+        <div className="flex items-start justify-between gap-4 border-b border-brand-100 pb-4">
           <div>
-            <h2 id="rl-dialog-title" className="text-lg font-semibold text-slate-100">
+            <h2 id="rl-dialog-title" className="text-lg font-semibold text-slate-900">
               {title}
             </h2>
             {description && (
-              <p id="rl-dialog-desc" className="mt-1 text-sm text-slate-400">
+              <p id="rl-dialog-desc" className="mt-1 text-sm text-slate-600">
                 {description}
               </p>
             )}
@@ -86,7 +86,7 @@ export function Modal({
             type="button"
             onClick={onClose}
             aria-label={closeLabel}
-            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-700/80 bg-slate-800/70 text-slate-300 transition hover:border-brand-500/40 hover:text-white cursor-pointer"
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-brand-200 bg-brand-50 text-slate-700 transition hover:border-brand-400 hover:bg-brand-100 hover:text-slate-900 cursor-pointer"
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>

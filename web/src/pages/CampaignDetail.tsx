@@ -90,8 +90,8 @@ export function CampaignDetail() {
   if (numericId <= 0) {
     return (
       <div className="glass rounded-2xl p-8 text-center">
-        <h1 className="text-xl font-bold text-white">Invalid Campaign ID</h1>
-        <Link to="/" className="mt-4 inline-flex items-center gap-2 text-sm text-brand-400">
+        <h1 className="text-xl font-bold text-slate-900">Invalid Campaign ID</h1>
+        <Link to="/" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:underline">
           <ArrowLeft className="h-4 w-4" /> Back to campaigns
         </Link>
       </div>
@@ -110,11 +110,11 @@ export function CampaignDetail() {
   if (!campaignRaw && !detail?.campaign) {
     return (
       <div className="glass rounded-2xl p-8 text-center">
-        <h1 className="text-xl font-bold text-white">Campaign #{numericId} Not Found</h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <h1 className="text-xl font-bold text-slate-900">Campaign #{numericId} Not Found</h1>
+        <p className="mt-2 text-sm text-slate-600">
           Ensure your wallet/RPC is connected to Sepolia and the contract address is set.
         </p>
-        <Link to="/" className="mt-4 inline-flex items-center gap-2 text-sm text-brand-400">
+        <Link to="/" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brand-700 hover:underline">
           <ArrowLeft className="h-4 w-4" /> Back to campaigns
         </Link>
       </div>
@@ -216,7 +216,7 @@ export function CampaignDetail() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-400 transition hover:text-brand-300"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 transition hover:text-brand-900"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Back to all campaigns
@@ -228,7 +228,7 @@ export function CampaignDetail() {
             void refetchCampaign();
             void reloadIndexed();
           }}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 hover:border-brand-500/40 cursor-pointer"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-white px-3 py-1.5 text-xs font-semibold text-brand-800 shadow-2xs transition hover:border-brand-500 hover:bg-brand-50 cursor-pointer"
         >
           <RefreshCw className="h-3.5 w-3.5" aria-hidden="true" />
           Refresh State
@@ -240,20 +240,25 @@ export function CampaignDetail() {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-2">
             <div className="flex flex-wrap items-center gap-2.5">
-              <span className="text-xs font-semibold uppercase tracking-widest text-brand-400">
+              <span className="text-xs font-semibold uppercase tracking-widest text-brand-700">
                 Campaign #{numericId}
               </span>
               <Badge label={status} variant={statusToBadgeVariant(statusCode)} />
             </div>
-            <h1 className="text-2xl font-bold text-white sm:text-3xl">
+            <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
               Disaster Relief Operation #{numericId}
             </h1>
-            <p className="text-xs text-slate-400">
-              Organizer: <code className="text-slate-200">{organizer}</code> · Verifier Quorum:{" "}
-              <strong className="text-white">
+            <p className="text-xs text-slate-600">
+              Organizer:{" "}
+              <code className="rounded bg-brand-50 px-1.5 py-0.5 font-semibold text-slate-900">
+                {organizer}
+              </code>{" "}
+              · Verifier Quorum:{" "}
+              <strong className="text-slate-900">
                 {threshold} of {verifiers.length}
               </strong>{" "}
-              · Challenge Period: <strong className="text-white">{Math.round(challengePeriod / 3600)}h</strong>
+              · Challenge Period:{" "}
+              <strong className="text-slate-900">{Math.round(challengePeriod / 3600)}h</strong>
             </p>
           </div>
 
@@ -276,38 +281,47 @@ export function CampaignDetail() {
         {/* Progress + KPI grid */}
         <div className="space-y-2">
           <div className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
-            <span className="text-lg font-bold text-white tabular-nums">
+            <span className="text-lg font-bold text-slate-900 tabular-nums">
               {formatUSDCFull(raised)} USDC raised
             </span>
-            <span className="text-xs text-slate-400 tabular-nums">
+            <span className="text-xs text-slate-600 tabular-nums">
               Minimum Goal: {formatUSDCFull(minGoal)} USDC ({pct}%)
             </span>
           </div>
-          <Progress value={pct} color={status === "Refunding" ? "amber" : "brand"} />
+          <Progress
+            value={pct}
+            color={
+              status === "Refunding"
+                ? "amber"
+                : status === "Completed" || status === "Active"
+                ? "accent"
+                : "brand"
+            }
+          />
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-xl border border-slate-800/80 bg-slate-900/60 p-3.5">
-            <span className="text-xs text-slate-400">Disbursed</span>
-            <p className="mt-1 text-base font-bold text-emerald-300 tabular-nums">
+          <div className="rounded-xl border border-forest-600/35 bg-forest-50/80 p-3.5">
+            <span className="text-xs font-semibold text-forest-800">Disbursed</span>
+            <p className="mt-1 text-base font-extrabold text-forest-700 tabular-nums">
               {formatUSDCFull(disbursed)} USDC
             </p>
           </div>
-          <div className="rounded-xl border border-slate-800/80 bg-slate-900/60 p-3.5">
-            <span className="text-xs text-slate-400">Current Milestone Available</span>
-            <p className="mt-1 text-base font-bold text-brand-300 tabular-nums">
+          <div className="rounded-xl border border-brand-200 bg-brand-50/70 p-3.5">
+            <span className="text-xs font-medium text-slate-600">Current Milestone Available</span>
+            <p className="mt-1 text-base font-bold text-brand-700 tabular-nums">
               {formatUSDCFull(currentAvailable)} USDC
             </p>
           </div>
-          <div className="rounded-xl border border-slate-800/80 bg-slate-900/60 p-3.5">
-            <span className="text-xs text-slate-400">Refund Pool / Claimed</span>
-            <p className="mt-1 text-base font-bold text-amber-300 tabular-nums">
+          <div className="rounded-xl border border-brand-200 bg-brand-50/70 p-3.5">
+            <span className="text-xs font-medium text-slate-600">Refund Pool / Claimed</span>
+            <p className="mt-1 text-base font-bold text-amber-800 tabular-nums">
               {formatUSDCFull(refundPool)} / {formatUSDCFull(refundedTotal)}
             </p>
           </div>
-          <div className="rounded-xl border border-slate-800/80 bg-slate-900/60 p-3.5">
-            <span className="text-xs text-slate-400">Your Contribution</span>
-            <p className="mt-1 text-base font-bold text-white tabular-nums">
+          <div className="rounded-xl border border-brand-200 bg-white p-3.5">
+            <span className="text-xs font-medium text-slate-600">Your Contribution</span>
+            <p className="mt-1 text-base font-bold text-slate-900 tabular-nums">
               {formatUSDCFull(myContrib)} USDC
             </p>
           </div>
@@ -315,9 +329,10 @@ export function CampaignDetail() {
 
         {/* Permissionless lifecycle triggers & donor refund */}
         {(canFinalize || canStallRefund || claimable > 0n) && (
-          <div className="flex flex-wrap items-center gap-3 border-t border-slate-800/80 pt-4">
+          <div className="flex flex-wrap items-center gap-3 border-t border-brand-100 pt-4">
             {canFinalize && (
               <TransactionButton
+                variant="forest"
                 loading={write.isPending}
                 onClick={() => runPermissionless("Finalize Fundraising", "finalizeFundraising")}
               >
@@ -339,7 +354,7 @@ export function CampaignDetail() {
 
             {claimable > 0n && (
               <TransactionButton
-                variant="primary"
+                variant="forest"
                 loading={write.isPending}
                 onClick={() => runPermissionless("Claim Pro-Rata Refund", "claimRefund")}
               >
@@ -362,11 +377,11 @@ export function CampaignDetail() {
           />
 
           <section className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">
+            <h3 className="text-lg font-semibold text-slate-900">
               Vendor Payout Requests ({requests.length})
             </h3>
             {requests.length === 0 ? (
-              <div className="glass rounded-2xl p-6 text-sm text-slate-400">
+              <div className="glass rounded-2xl p-6 text-sm text-slate-600">
                 No vendor payout requests proposed for this campaign yet.
               </div>
             ) : (
@@ -402,23 +417,23 @@ export function CampaignDetail() {
           />
 
           <div className="glass rounded-2xl p-6 space-y-3">
-            <div className="flex items-center gap-2 text-sm font-semibold text-white">
-              <ShieldCheck className="h-4 w-4 text-brand-400" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+              <ShieldCheck className="h-4 w-4 text-forest-700" aria-hidden="true" />
               Verifier Committee ({threshold} of {verifiers.length})
             </div>
             <ul className="space-y-1.5 text-xs">
               {verifiers.map((v, i) => (
                 <li
                   key={v}
-                  className="flex items-center justify-between rounded-lg border border-slate-800/80 bg-slate-900/50 px-3 py-2 font-mono text-slate-300"
+                  className="flex items-center justify-between rounded-lg border border-brand-200 bg-brand-50/60 px-3 py-2 font-mono text-slate-800"
                 >
-                  <span>Verifier #{i + 1}</span>
+                  <span className="font-semibold text-brand-900">Verifier #{i + 1}</span>
                   <span>{formatAddress(v)}</span>
                 </li>
               ))}
             </ul>
-            <div className="pt-1 text-[11px] text-slate-500 flex items-center gap-1.5">
-              <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+            <div className="pt-1 text-[11px] text-slate-600 flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5 text-brand-700" aria-hidden="true" />
               Deadline: {formatDate(deadline)} · Stall timeout: {Math.round(stallTimeout / 86400)} days
             </div>
           </div>

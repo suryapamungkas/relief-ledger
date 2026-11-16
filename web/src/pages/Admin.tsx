@@ -141,21 +141,21 @@ export function Admin() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-white">Protocol Admin Console</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-3xl font-bold text-slate-900">Protocol Admin Console</h1>
+        <p className="mt-1 text-sm text-slate-600">
           Owner capabilities are strictly scoped: register verified vendors, create campaigns, pause new deposits/approvals, and 2-step ownership transfer. Admin cannot withdraw or redirect escrowed USDC.
         </p>
       </div>
 
       {isPendingOwner && !isOwner && (
-        <div className="glass rounded-2xl border border-brand-500/40 p-6 flex flex-wrap items-center justify-between gap-4">
+        <div className="glass rounded-2xl border border-brand-500 p-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="font-semibold text-white">Pending Ownership Acceptance</h2>
-            <p className="text-xs text-slate-300">
+            <h2 className="font-semibold text-slate-900">Pending Ownership Acceptance</h2>
+            <p className="text-xs text-slate-600">
               Your wallet is nominated as pendingOwner. Accept ownership to complete 2-step transfer.
             </p>
           </div>
-          <TransactionButton onClick={() => void callAdmin("Accept Ownership", "acceptOwnership")}>
+          <TransactionButton variant="forest" onClick={() => void callAdmin("Accept Ownership", "acceptOwnership")}>
             Accept Ownership
           </TransactionButton>
         </div>
@@ -163,11 +163,18 @@ export function Admin() {
 
       {!isOwner ? (
         <div className="glass rounded-2xl p-8 text-center space-y-3">
-          <ShieldAlert className="mx-auto h-10 w-10 text-amber-400" aria-hidden="true" />
-          <h2 className="text-lg font-semibold text-white">Owner-Only Gate</h2>
-          <p className="mx-auto max-w-lg text-sm text-slate-400">
-            Admin actions are restricted to the contract owner (<code>{ownerStr || "Not configured"}</code>).
-            Connected address: <code>{address ?? "None"}</code>.
+          <ShieldAlert className="mx-auto h-10 w-10 text-amber-700" aria-hidden="true" />
+          <h2 className="text-lg font-semibold text-slate-900">Owner-Only Gate</h2>
+          <p className="mx-auto max-w-lg text-sm text-slate-600">
+            Admin actions are restricted to the contract owner (
+            <code className="rounded bg-brand-50 px-1.5 py-0.5 font-semibold text-slate-900">
+              {ownerStr || "Not configured"}
+            </code>
+            ). Connected address:{" "}
+            <code className="rounded bg-brand-50 px-1.5 py-0.5 font-semibold text-slate-900">
+              {address ?? "None"}
+            </code>
+            .
           </p>
         </div>
       ) : (
@@ -176,23 +183,23 @@ export function Admin() {
           <div className="space-y-6">
             <div className="glass rounded-2xl p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-white">Circuit Breaker</h2>
+                <h2 className="text-lg font-semibold text-slate-900">Circuit Breaker</h2>
                 <span
-                  className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                  className={`rounded-full border px-2.5 py-0.5 text-xs font-semibold ${
                     isPaused
-                      ? "bg-rose-500/15 text-rose-300"
-                      : "bg-emerald-500/15 text-emerald-300"
+                      ? "border-rose-300 bg-rose-50 text-rose-800"
+                      : "border-forest-600/35 bg-forest-50 text-forest-800"
                   }`}
                 >
                   {isPaused ? "PAUSED" : "OPERATIONAL"}
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600">
                 Pausing blocks donations, proposals, approvals, and payouts while keeping refunds, vetoes, and cancellations open.
               </p>
               <div className="flex gap-3">
                 <TransactionButton
-                  variant={isPaused ? "primary" : "danger"}
+                  variant={isPaused ? "forest" : "danger"}
                   onClick={() =>
                     void callAdmin(
                       isPaused ? "Unpause Protocol" : "Pause Protocol",
@@ -214,12 +221,12 @@ export function Admin() {
             </div>
 
             <div className="glass rounded-2xl p-6 space-y-4">
-              <div className="flex items-center gap-2 text-lg font-semibold text-white">
-                <UserCheck className="h-5 w-5 text-brand-400" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                <UserCheck className="h-5 w-5 text-brand-700" aria-hidden="true" />
                 Vendor Allowlist (`setVendor`)
               </div>
               <div>
-                <label htmlFor="admin-vendor" className="block text-xs font-medium text-slate-300 mb-1">
+                <label htmlFor="admin-vendor" className="block text-xs font-semibold text-slate-800 mb-1">
                   Vendor Address
                 </label>
                 <input
@@ -228,20 +235,21 @@ export function Admin() {
                   value={vendorAddr}
                   onChange={(e) => setVendorAddr(e.target.value)}
                   placeholder="0x..."
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3.5 py-2 font-mono text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3.5 py-2 font-mono text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
-              <label className="inline-flex items-center gap-2 text-sm text-slate-300 cursor-pointer">
+              <label className="inline-flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={vendorAllowed}
                   onChange={(e) => setVendorAllowed(e.target.checked)}
-                  className="h-4 w-4 accent-brand-500"
+                  className="h-4 w-4 accent-forest-700"
                 />
                 Allowlisted to receive disbursements
               </label>
               <TransactionButton
                 fullWidth
+                variant="primary"
                 disabled={!isAddress(vendorAddr)}
                 onClick={() =>
                   void callAdmin("Update Vendor Allowlist", "setVendor", [
@@ -255,8 +263,8 @@ export function Admin() {
             </div>
 
             <div className="glass rounded-2xl p-6 space-y-4">
-              <div className="flex items-center gap-2 text-lg font-semibold text-white">
-                <KeyRound className="h-5 w-5 text-amber-400" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                <KeyRound className="h-5 w-5 text-amber-700" aria-hidden="true" />
                 2-Step Ownership Transfer
               </div>
               <input
@@ -264,7 +272,7 @@ export function Admin() {
                 value={newOwner}
                 onChange={(e) => setNewOwner(e.target.value)}
                 placeholder="New Owner 0x..."
-                className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3.5 py-2 font-mono text-sm text-white"
+                className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3.5 py-2 font-mono text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
               />
               <TransactionButton
                 variant="secondary"
@@ -282,46 +290,46 @@ export function Admin() {
 
           {/* Create Campaign */}
           <div className="glass rounded-2xl p-6 space-y-4">
-            <div className="flex items-center gap-2 text-lg font-semibold text-white">
-              <PlusCircle className="h-5 w-5 text-emerald-400" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+              <PlusCircle className="h-5 w-5 text-forest-700" aria-hidden="true" />
               Create Campaign
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-slate-300 mb-1">Organizer Address</label>
+                <label className="block text-xs font-semibold text-slate-800 mb-1">Organizer Address</label>
                 <input
                   type="text"
                   value={organizer}
                   onChange={(e) => setOrganizer(e.target.value)}
                   placeholder="0x..."
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 font-mono text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Min Goal (USDC)</label>
+                <label className="block text-xs font-semibold text-slate-800 mb-1">Min Goal (USDC)</label>
                 <input
                   type="text"
                   value={minGoalStr}
                   onChange={(e) => setMinGoalStr(e.target.value)}
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">Fundraising Days</label>
+                <label className="block text-xs font-semibold text-slate-800 mb-1">Fundraising Days</label>
                 <input
                   type="number"
                   min={1}
                   value={deadlineDays}
                   onChange={(e) => setDeadlineDays(e.target.value)}
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-800 mb-1">
                   Verifier Addresses (3–9 comma/space separated)
                 </label>
                 <textarea
@@ -329,12 +337,12 @@ export function Admin() {
                   value={verifiersCsv}
                   onChange={(e) => setVerifiersCsv(e.target.value)}
                   placeholder="0x..., 0x..., 0x..."
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 font-mono text-xs text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 font-mono text-xs text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-800 mb-1">
                   Threshold (Strict Majority)
                 </label>
                 <input
@@ -342,12 +350,12 @@ export function Admin() {
                   min={2}
                   value={thresholdStr}
                   onChange={(e) => setThresholdStr(e.target.value)}
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-800 mb-1">
                   Challenge Window (24–168h)
                 </label>
                 <input
@@ -356,12 +364,12 @@ export function Admin() {
                   max={168}
                   value={challengeHours}
                   onChange={(e) => setChallengeHours(e.target.value)}
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-800 mb-1">
                   Stall Timeout (14–90d)
                 </label>
                 <input
@@ -370,12 +378,12 @@ export function Admin() {
                   max={90}
                   value={stallDays}
                   onChange={(e) => setStallDays(e.target.value)}
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-800 mb-1">
                   Milestone BPS (sum = 10000)
                 </label>
                 <input
@@ -383,24 +391,24 @@ export function Admin() {
                   value={bpsCsv}
                   onChange={(e) => setBpsCsv(e.target.value)}
                   placeholder="3000,3000,4000"
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 font-mono text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-medium text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-slate-800 mb-1">
                   Metadata CID (1–128 chars)
                 </label>
                 <input
                   type="text"
                   value={metadataCid}
                   onChange={(e) => setMetadataCid(e.target.value)}
-                  className="rl-input w-full rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 font-mono text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-3 py-2 font-mono text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
               </div>
             </div>
 
-            <TransactionButton fullWidth onClick={handleCreateCampaign}>
+            <TransactionButton fullWidth variant="forest" onClick={handleCreateCampaign}>
               Deploy Campaign On-Chain
             </TransactionButton>
           </div>

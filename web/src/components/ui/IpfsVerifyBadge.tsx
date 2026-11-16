@@ -25,39 +25,39 @@ export function IpfsVerifyBadge({
     computed!.toLowerCase() === expectedHash!.toLowerCase();
 
   return (
-    <div className="rounded-xl border border-slate-800/90 bg-slate-900/60 p-3 text-xs">
+    <div className="rounded-xl border border-brand-200 bg-brand-50/70 p-3 text-xs">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="font-medium text-slate-400">{label}</span>
+        <span className="font-medium text-slate-600">{label}</span>
         {url ? (
           <a
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-mono text-brand-300 hover:text-brand-200"
+            className="inline-flex items-center gap-1 font-mono font-semibold text-brand-700 hover:text-brand-900 hover:underline"
           >
             {cid.length > 30 ? `${cid.slice(0, 18)}…${cid.slice(-8)}` : cid}
             <ExternalLink className="h-3 w-3" aria-hidden="true" />
           </a>
         ) : (
-          <span className="font-mono text-rose-400">Invalid or unsafe CID</span>
+          <span className="font-mono font-medium text-rose-700">Invalid or unsafe CID</span>
         )}
       </div>
 
       {expectedHash && (
-        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-800/80 pt-2">
-          <span className="font-mono text-[11px] text-slate-500">
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-brand-200/80 pt-2">
+          <span className="font-mono text-[11px] text-slate-600">
             Hash: {formatAddress(expectedHash)}
           </span>
           <motion.button
             type="button"
             whileTap={{ scale: 0.95 }}
             onClick={() => setChecked(true)}
-            className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 font-medium transition cursor-pointer ${
+            className={`inline-flex items-center gap-1 rounded-md px-2.5 py-0.5 font-semibold transition cursor-pointer ${
               checked
                 ? matches
-                  ? "bg-emerald-500/15 text-emerald-300"
-                  : "bg-rose-500/15 text-rose-300"
-                : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+                  ? "border border-forest-800 bg-forest-700 text-white shadow-2xs"
+                  : "border border-rose-800 bg-rose-700 text-white"
+                : "border border-brand-300 bg-white text-brand-800 hover:bg-brand-100"
             }`}
           >
             {checked ? (

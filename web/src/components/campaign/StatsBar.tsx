@@ -15,28 +15,36 @@ export function StatsBar({ stats, loading = false }: StatsBarProps) {
       value: `${formatUSDC(BigInt(stats.totalRaised || "0"))} USDC`,
       sub: `${stats.totalCampaigns} campaign(s)`,
       icon: Banknote,
-      color: "text-brand-400",
+      color: "text-brand-700",
+      valueColor: "text-slate-900",
+      accentBorder: "",
     },
     {
       label: "Disbursed to Vendors",
       value: `${formatUSDC(BigInt(stats.totalDisbursed || "0"))} USDC`,
       sub: "Invoice-backed payouts",
       icon: ArrowUpRight,
-      color: "text-emerald-400",
+      color: "text-forest-700",
+      valueColor: "text-forest-800",
+      accentBorder: "border-t-4 border-t-forest-700",
     },
     {
       label: "Locked / Escrowed",
       value: `${formatUSDC(BigInt(stats.totalEscrowed || "0"))} USDC`,
       sub: `${formatUSDC(BigInt(stats.totalRefunded || "0"))} refunded`,
       icon: Lock,
-      color: "text-cyan-400",
+      color: "text-brand-600",
+      valueColor: "text-slate-900",
+      accentBorder: "",
     },
     {
       label: "Campaign States",
       value: `${stats.activeCampaigns} Active`,
       sub: `${stats.completedCampaigns} done · ${stats.refundingCampaigns} refunding`,
       icon: Layers,
-      color: "text-amber-400",
+      color: "text-forest-700",
+      valueColor: "text-slate-900",
+      accentBorder: "",
     },
   ];
 
@@ -49,10 +57,10 @@ export function StatsBar({ stats, loading = false }: StatsBarProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.3, delay: idx * 0.06 }}
-          className="glass glass-hover rounded-2xl p-5"
+          className={`glass glass-hover rounded-2xl p-5 ${item.accentBorder}`}
         >
           <div className="flex items-center justify-between gap-2">
-            <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-600">
               {item.label}
             </span>
             <item.icon className={`h-4 w-4 ${item.color}`} aria-hidden="true" />
@@ -60,11 +68,11 @@ export function StatsBar({ stats, loading = false }: StatsBarProps) {
           {loading ? (
             <div className="skeleton mt-3 h-7 w-28 rounded-lg" />
           ) : (
-            <p className="mt-2.5 text-2xl font-bold tracking-tight text-white tabular-nums">
+            <p className={`mt-2.5 text-2xl font-bold tracking-tight tabular-nums ${item.valueColor}`}>
               {item.value}
             </p>
           )}
-          <p className="mt-1 text-xs text-slate-400 tabular-nums">{item.sub}</p>
+          <p className="mt-1 text-xs text-slate-600 tabular-nums">{item.sub}</p>
         </motion.div>
       ))}
     </section>

@@ -33,15 +33,17 @@ export function CountdownTimer({
     <div
       className={`inline-flex items-center gap-2 rounded-lg border px-2.5 py-1 text-xs font-medium tabular-nums ${
         elapsed
-          ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+          ? "border-forest-600/40 bg-forest-50 text-forest-800"
           : urgent
-          ? "border-amber-500/40 bg-amber-500/10 text-amber-300"
-          : "border-slate-700/80 bg-slate-800/70 text-slate-300"
+          ? "border-amber-400 bg-amber-50 text-amber-900"
+          : "border-brand-200 bg-brand-50 text-brand-900"
       }`}
     >
       <Clock className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-      <span className="text-slate-400">{label}:</span>
-      <span className="font-semibold text-white">
+      <span className={elapsed ? "text-forest-800" : urgent ? "text-amber-900" : "text-brand-800"}>
+        {label}:
+      </span>
+      <span className={`font-semibold ${elapsed ? "text-forest-900" : "text-slate-900"}`}>
         {elapsed ? elapsedText : formatCountdown(remaining)}
       </span>
     </div>

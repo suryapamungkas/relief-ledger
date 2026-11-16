@@ -38,62 +38,71 @@ export function CampaignCard({ campaign, index = 0 }: CampaignCardProps) {
       <div>
         <div className="flex items-start justify-between gap-3">
           <div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-brand-400">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand-700">
               Campaign #{campaign.id}
             </span>
-            <h3 className="mt-1 text-lg font-semibold text-white">
+            <h3 className="mt-1 text-lg font-semibold text-slate-900">
               Disaster Relief Operation #{campaign.id}
             </h3>
           </div>
           <Badge label={campaign.status} variant={statusToBadgeVariant(statusCode)} />
         </div>
 
-        <p className="mt-2 truncate font-mono text-xs text-slate-400" title={campaign.metadataCid}>
+        <p className="mt-2 truncate font-mono text-xs text-slate-600" title={campaign.metadataCid}>
           Brief CID: {campaign.metadataCid}
         </p>
 
         <div className="mt-5">
           <div className="mb-1.5 flex items-baseline justify-between text-sm">
-            <span className="font-semibold text-white tabular-nums">
+            <span className="font-semibold text-slate-900 tabular-nums">
               {formatUSDC(raised)} USDC
             </span>
-            <span className="text-xs text-slate-400 tabular-nums">
+            <span className="text-xs text-slate-600 tabular-nums">
               Goal: {formatUSDC(goal)} USDC ({pct}%)
             </span>
           </div>
-          <Progress value={pct} color={campaign.status === "Refunding" ? "amber" : "brand"} />
+          <Progress
+            value={pct}
+            color={
+              campaign.status === "Refunding"
+                ? "amber"
+                : campaign.status === "Completed" || campaign.status === "Active"
+                ? "accent"
+                : "brand"
+            }
+          />
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-2.5 text-xs text-slate-300">
-          <div className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-3 py-2">
-            <span className="block text-[11px] text-slate-500">Milestones</span>
-            <span className="font-semibold text-white tabular-nums">
+        <div className="mt-4 grid grid-cols-2 gap-2.5 text-xs text-slate-700">
+          <div className="rounded-xl border border-brand-200 bg-brand-50/70 px-3 py-2">
+            <span className="block text-[11px] font-medium text-slate-600">Milestones</span>
+            <span className="font-semibold text-slate-900 tabular-nums">
               {campaign.currentMilestone + 1} / {campaign.milestoneBps.length}
             </span>
           </div>
-          <div className="rounded-xl border border-slate-800/80 bg-slate-900/60 px-3 py-2">
-            <span className="block text-[11px] text-slate-500">Verifiers</span>
-            <span className="inline-flex items-center gap-1 font-semibold text-white tabular-nums">
-              <ShieldCheck className="h-3.5 w-3.5 text-brand-400" aria-hidden="true" />
+          <div className="rounded-xl border border-brand-200 bg-brand-50/70 px-3 py-2">
+            <span className="block text-[11px] font-medium text-slate-600">Verifiers</span>
+            <span className="inline-flex items-center gap-1 font-semibold text-slate-900 tabular-nums">
+              <ShieldCheck className="h-3.5 w-3.5 text-forest-700" aria-hidden="true" />
               {campaign.threshold}/{campaign.verifiers.length}
             </span>
           </div>
         </div>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-800/80 pt-4">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-brand-100 pt-4">
         {campaign.status === "Fundraising" ? (
           <CountdownTimer targetTimestamp={campaign.donationDeadline} label="Window" />
         ) : (
-          <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
-            <Users className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />
-            Org: <code className="text-slate-300">{formatAddress(campaign.organizer)}</code>
+          <span className="inline-flex items-center gap-1.5 text-xs text-slate-600">
+            <Users className="h-3.5 w-3.5 text-brand-700" aria-hidden="true" />
+            Org: <code className="font-semibold text-slate-800">{formatAddress(campaign.organizer)}</code>
           </span>
         )}
 
         <Link
           to={`/campaign/${campaign.id}`}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-brand-500/15 px-3 py-1.5 text-xs font-semibold text-brand-300 transition hover:bg-brand-500/25 hover:text-brand-200"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-forest-800 bg-forest-700 px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs transition hover:bg-forest-800"
         >
           Inspect
           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />

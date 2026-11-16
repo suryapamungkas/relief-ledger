@@ -31,10 +31,10 @@ export function FundFlowLedger({ flows, loading = false }: FundFlowLedgerProps) 
     <section aria-labelledby="ledger-heading" className="glass rounded-2xl p-6 space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h3 id="ledger-heading" className="text-lg font-semibold text-white">
+          <h3 id="ledger-heading" className="text-lg font-semibold text-slate-900">
             On-Chain Fund Flow Ledger
           </h3>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-slate-600">
             Single verifiable ledger pairing incoming USDC escrow deposits with outgoing vendor settlements and refunds.
           </p>
         </div>
@@ -54,7 +54,7 @@ export function FundFlowLedger({ flows, loading = false }: FundFlowLedgerProps) 
           <div className="skeleton h-10 rounded-xl" />
         </div>
       ) : filtered.length === 0 ? (
-        <p className="rounded-xl border border-slate-800/80 bg-slate-900/50 p-6 text-center text-sm text-slate-400">
+        <p className="rounded-xl border border-brand-200 bg-brand-50/70 p-6 text-center text-sm text-slate-600">
           No indexed token movements for this filter yet. Connect the event indexer or wait for confirmed Sepolia events.
         </p>
       ) : (
@@ -62,10 +62,10 @@ export function FundFlowLedger({ flows, loading = false }: FundFlowLedgerProps) 
           tabIndex={0}
           role="region"
           aria-labelledby="ledger-heading"
-          className="rl-table-region rounded-xl border border-slate-800/80"
+          className="rl-table-region rounded-xl border border-brand-200 bg-white"
         >
           <table className="rl-table text-left text-sm">
-            <thead className="sticky top-0 border-b border-slate-800 bg-slate-900/95 text-xs uppercase tracking-wider text-slate-400">
+            <thead className="sticky top-0 border-b border-brand-200 bg-brand-50/95 text-xs uppercase tracking-wider text-brand-900">
               <tr>
                 <th scope="col" className="px-4 py-3 font-semibold">Direction</th>
                 <th scope="col" className="px-4 py-3 font-semibold">Type</th>
@@ -75,17 +75,17 @@ export function FundFlowLedger({ flows, loading = false }: FundFlowLedgerProps) 
                 <th scope="col" className="px-4 py-3 font-semibold">Transaction</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/70">
+            <tbody className="divide-y divide-brand-100">
               {filtered.map((item) => {
                 const isIn = item.direction === "in";
                 return (
-                  <tr key={item.id} className="hover:bg-slate-900/45 transition-colors">
+                  <tr key={item.id} className="hover:bg-brand-50/60 transition-colors">
                     <td data-label="Direction" className="px-4 py-3">
                       <span
-                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                        className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${
                           isIn
-                            ? "bg-emerald-500/15 text-emerald-300"
-                            : "bg-amber-500/15 text-amber-300"
+                            ? "border-forest-600/35 bg-forest-50 text-forest-800"
+                            : "border-brand-300 bg-brand-50 text-brand-800"
                         }`}
                       >
                         {isIn ? (
@@ -96,17 +96,22 @@ export function FundFlowLedger({ flows, loading = false }: FundFlowLedgerProps) 
                         {isIn ? "IN" : "OUT"}
                       </span>
                     </td>
-                    <td data-label="Type" className="px-4 py-3 capitalize text-slate-200">
+                    <td data-label="Type" className="px-4 py-3 capitalize text-slate-800">
                       {item.flowType}
                     </td>
-                    <td data-label="Counterparty" className="px-4 py-3 font-mono text-xs text-slate-300">
+                    <td data-label="Counterparty" className="px-4 py-3 font-mono text-xs text-slate-700">
                       {formatAddress(item.counterparty)}
                     </td>
-                    <td data-label="Amount" className="px-4 py-3 font-mono font-semibold text-white tabular-nums">
+                    <td
+                      data-label="Amount"
+                      className={`px-4 py-3 font-mono tabular-nums ${
+                        isIn ? "font-bold text-forest-700" : "font-semibold text-slate-900"
+                      }`}
+                    >
                       {isIn ? "+" : "-"}
                       {formatUSDCFull(BigInt(item.amount))}
                     </td>
-                    <td data-label="Time" className="px-4 py-3 text-xs text-slate-400">
+                    <td data-label="Time" className="px-4 py-3 text-xs text-slate-600">
                       {item.timestamp > 0 ? formatDate(item.timestamp) : `Block #${item.blockNumber}`}
                     </td>
                     <td data-label="Transaction" className="px-4 py-3">
@@ -114,7 +119,7 @@ export function FundFlowLedger({ flows, loading = false }: FundFlowLedgerProps) 
                         href={`https://sepolia.etherscan.io/tx/${item.txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 font-mono text-xs text-brand-400 hover:text-brand-300"
+                        className="inline-flex items-center gap-1 font-mono text-xs font-semibold text-brand-700 hover:text-brand-900 hover:underline"
                       >
                         {formatAddress(item.txHash)}
                         <ExternalLink className="h-3 w-3" aria-hidden="true" />

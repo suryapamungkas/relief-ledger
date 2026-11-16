@@ -103,14 +103,17 @@ export function PayoutRequestCard({
     <div className="glass rounded-2xl p-5 space-y-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-brand-400">
+          <span className="text-xs font-semibold uppercase tracking-wider text-brand-700">
             Request #{request.id} · Milestone {request.milestone + 1}
           </span>
-          <h4 className="mt-0.5 text-lg font-bold text-white tabular-nums">
+          <h4 className="mt-0.5 text-lg font-bold text-slate-900 tabular-nums">
             {formatUSDCFull(BigInt(request.amount))} USDC
           </h4>
-          <p className="text-xs text-slate-400">
-            Vendor: <code className="text-slate-200">{formatAddress(request.vendor)}</code>
+          <p className="text-xs text-slate-600">
+            Vendor:{" "}
+            <code className="rounded bg-brand-50 px-1.5 py-0.5 font-semibold text-slate-900">
+              {formatAddress(request.vendor)}
+            </code>
           </p>
         </div>
 
@@ -134,8 +137,8 @@ export function PayoutRequestCard({
 
       <div className="space-y-1.5">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-slate-400">Verifier Approvals</span>
-          <span className="font-semibold text-white tabular-nums">
+          <span className="text-slate-600">Verifier Approvals</span>
+          <span className="font-semibold text-slate-900 tabular-nums">
             {request.approvals} / {threshold} required
           </span>
         </div>
@@ -156,16 +159,16 @@ export function PayoutRequestCard({
       )}
 
       {request.votes.length > 0 && (
-        <div className="space-y-1.5 border-t border-slate-800/80 pt-3 text-xs">
-          <span className="block font-medium text-slate-400">Verifier Votes</span>
+        <div className="space-y-1.5 border-t border-brand-100 pt-3 text-xs">
+          <span className="block font-semibold text-slate-700">Verifier Votes</span>
           {request.votes.map((v) => (
-            <div key={v.id} className="flex items-center justify-between gap-2 text-slate-300">
+            <div key={v.id} className="flex items-center justify-between gap-2 text-slate-700">
               <span className="font-mono">{formatAddress(v.verifier)}</span>
               <span
                 className={
                   v.voteType === "approved"
-                    ? "font-semibold text-emerald-400"
-                    : "font-semibold text-rose-400"
+                    ? "font-semibold text-forest-700"
+                    : "font-semibold text-rose-700"
                 }
               >
                 {v.voteType === "approved" ? "Approved" : `Vetoed (${v.reasonCid ?? ""})`}
@@ -176,10 +179,11 @@ export function PayoutRequestCard({
       )}
 
       {request.status === "Proposed" && (
-        <div className="flex flex-wrap gap-2 border-t border-slate-800/80 pt-3">
+        <div className="flex flex-wrap gap-2 border-t border-brand-100 pt-3">
           {isVerifier && !thresholdMet && !Boolean(hasVotedChain) && (
             <TransactionButton
               size="sm"
+              variant="forest"
               disabled={isPaused}
               loading={write.isPending}
               onClick={() => invoke(`Approve Request #${request.id}`, "approvePayout", [reqIdBigInt])}
@@ -215,6 +219,7 @@ export function PayoutRequestCard({
           {thresholdMet && challengeElapsed && (
             <TransactionButton
               size="sm"
+              variant="forest"
               disabled={isPaused}
               loading={write.isPending}
               onClick={() => invoke(`Execute Payout #${request.id}`, "executePayout", [reqIdBigInt])}
@@ -227,8 +232,8 @@ export function PayoutRequestCard({
       )}
 
       {showVetoBox && request.status === "Proposed" && (
-        <div className="space-y-2 rounded-xl border border-rose-500/30 bg-rose-950/20 p-3">
-          <label htmlFor={`veto-${request.id}`} className="block text-xs font-medium text-rose-200">
+        <div className="space-y-2 rounded-xl border border-rose-300 bg-rose-50 p-3">
+          <label htmlFor={`veto-${request.id}`} className="block text-xs font-semibold text-rose-900">
             Veto Reason CID (1–128 chars, recorded on-chain)
           </label>
           <input
@@ -237,7 +242,7 @@ export function PayoutRequestCard({
             value={vetoCid}
             onChange={(e) => setVetoCid(e.target.value)}
             placeholder="ipfs://QmReason…"
-            className="rl-input w-full rounded-lg border border-rose-500/30 bg-slate-900 px-3 py-1.5 text-xs text-white"
+            className="rl-input w-full rounded-lg border border-rose-300 bg-white px-3 py-1.5 text-xs text-slate-900"
           />
           <div className="flex justify-end gap-2">
             <TransactionButton

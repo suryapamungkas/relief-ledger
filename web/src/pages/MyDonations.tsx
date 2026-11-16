@@ -127,8 +127,8 @@ export function MyDonations() {
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-white">My Donations & Refunds</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-3xl font-bold text-slate-900">My Donations & Refunds</h1>
+          <p className="mt-1 text-sm text-slate-600">
             Reads your contributions and claimable pull-refunds directly from the Sepolia escrow contract—works even if the indexer is offline.
           </p>
         </div>
@@ -136,7 +136,7 @@ export function MyDonations() {
           <button
             type="button"
             onClick={() => void scanOnChainPositions()}
-            className="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/70 px-3.5 py-2 text-xs font-medium text-slate-200 hover:border-brand-500/40 cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-xl border border-brand-300 bg-white px-3.5 py-2 text-xs font-semibold text-brand-800 shadow-2xs transition hover:border-brand-500 hover:bg-brand-50 cursor-pointer"
           >
             <RefreshCcw className="h-3.5 w-3.5" aria-hidden="true" />
             Rescan Escrow
@@ -146,25 +146,25 @@ export function MyDonations() {
 
       {!address ? (
         <div className="glass rounded-2xl p-10 text-center">
-          <Wallet className="mx-auto h-10 w-10 text-brand-400" aria-hidden="true" />
-          <h2 className="mt-3 text-lg font-semibold text-white">Connect Your Wallet</h2>
-          <p className="mt-1 text-sm text-slate-400">
+          <Wallet className="mx-auto h-10 w-10 text-brand-700" aria-hidden="true" />
+          <h2 className="mt-3 text-lg font-semibold text-slate-900">Connect Your Wallet</h2>
+          <p className="mt-1 text-sm text-slate-600">
             Connect the Sepolia address you donated from to view escrow balances and claim available refunds.
           </p>
         </div>
       ) : (
         <>
           <section className="space-y-4">
-            <h2 className="text-lg font-semibold text-white">On-Chain Escrow Positions</h2>
+            <h2 className="text-lg font-semibold text-slate-900">On-Chain Escrow Positions</h2>
             {scanning ? (
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="skeleton h-36 rounded-2xl" />
                 <div className="skeleton h-36 rounded-2xl" />
               </div>
             ) : positions.length === 0 ? (
-              <div className="glass rounded-2xl p-8 text-center text-sm text-slate-400">
+              <div className="glass rounded-2xl p-8 text-center text-sm text-slate-600">
                 No contributions recorded on-chain for your connected address yet.{" "}
-                <Link to="/" className="text-brand-400 hover:underline">
+                <Link to="/" className="font-semibold text-brand-700 hover:underline">
                   Explore open relief campaigns
                 </Link>
                 .
@@ -177,14 +177,14 @@ export function MyDonations() {
                       <div>
                         <Link
                           to={`/campaign/${pos.id}`}
-                          className="inline-flex items-center gap-1 text-base font-bold text-white hover:text-brand-300"
+                          className="inline-flex items-center gap-1 text-base font-bold text-slate-900 hover:text-brand-700"
                         >
                           Campaign #{pos.id}
                           <ArrowRight className="h-4 w-4" aria-hidden="true" />
                         </Link>
-                        <p className="mt-1 text-xs text-slate-400">
+                        <p className="mt-1 text-xs text-slate-600">
                           Total contributed:{" "}
-                          <strong className="text-white tabular-nums">
+                          <strong className="text-slate-900 tabular-nums">
                             {formatUSDCFull(pos.contribution)} USDC
                           </strong>
                         </p>
@@ -192,16 +192,17 @@ export function MyDonations() {
                       <Badge label={pos.status} variant={statusToBadgeVariant(pos.statusCode)} />
                     </div>
 
-                    <div className="flex items-center justify-between border-t border-slate-800/80 pt-3">
+                    <div className="flex items-center justify-between border-t border-brand-100 pt-3">
                       <div>
-                        <span className="block text-[11px] text-slate-500">Claimable Refund</span>
-                        <span className="text-sm font-bold text-amber-300 tabular-nums">
+                        <span className="block text-[11px] font-medium text-slate-600">Claimable Refund</span>
+                        <span className="text-sm font-bold text-amber-800 tabular-nums">
                           {formatUSDCFull(pos.claimable)} USDC
                         </span>
                       </div>
                       {pos.claimable > 0n && (
                         <TransactionButton
                           size="sm"
+                          variant="forest"
                           loading={write.isPending}
                           onClick={() => handleClaim(pos.id)}
                         >
@@ -216,29 +217,29 @@ export function MyDonations() {
           </section>
 
           <section className="glass rounded-2xl p-6 space-y-4">
-            <h2 className="text-lg font-semibold text-white">Indexed Donation History</h2>
+            <h2 className="text-lg font-semibold text-slate-900">Indexed Donation History</h2>
             {idxLoading ? (
               <div className="skeleton h-24 rounded-xl" />
             ) : !activity || activity.donations.length === 0 ? (
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-slate-600">
                 No indexed donation logs returned for this address yet.
               </p>
             ) : (
-              <ul className="divide-y divide-slate-800/80 text-sm">
+              <ul className="divide-y divide-brand-100 text-sm">
                 {activity.donations.map((d) => (
                   <li key={d.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
                     <div>
                       <Link
                         to={`/campaign/${d.campaignId}`}
-                        className="font-semibold text-brand-300 hover:underline"
+                        className="font-semibold text-brand-700 hover:underline"
                       >
                         Campaign #{d.campaignId}
                       </Link>
-                      <span className="ml-2 text-xs text-slate-500">
+                      <span className="ml-2 text-xs text-slate-600">
                         {d.timestamp ? formatDate(d.timestamp) : `Block #${d.blockNumber}`}
                       </span>
                     </div>
-                    <span className="font-mono font-semibold text-white tabular-nums">
+                    <span className="font-mono font-bold text-forest-700 tabular-nums">
                       {formatUSDCFull(BigInt(d.amount))} USDC
                     </span>
                   </li>

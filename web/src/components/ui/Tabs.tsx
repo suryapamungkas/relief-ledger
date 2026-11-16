@@ -52,7 +52,7 @@ export function Tabs({
       role="tablist"
       aria-label={ariaLabel}
       onKeyDown={handleKeyDown}
-      className="inline-flex flex-wrap gap-1 rounded-xl border border-slate-800/90 bg-slate-900/75 p-1"
+      className="inline-flex flex-wrap gap-1 rounded-xl border border-brand-200 bg-brand-50/90 p-1"
     >
       {tabs.map((tab) => {
         const selected = tab.id === activeId;
@@ -67,15 +67,15 @@ export function Tabs({
             onClick={() => onChange(tab.id)}
             className={`relative inline-flex min-h-9 items-center gap-2 rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors cursor-pointer ${
               selected
-                ? "text-white"
-                : "text-slate-400 hover:text-slate-200"
+                ? "font-semibold text-brand-950"
+                : "text-slate-600 hover:text-brand-800"
             }`}
           >
             {selected && (
               <motion.span
                 layoutId={layoutId}
                 transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                className="absolute inset-0 rounded-lg border-b-2 border-brand-400 bg-slate-800/95 shadow-sm"
+                className="absolute inset-0 rounded-lg border border-brand-200 border-b-2 border-b-forest-700 bg-white shadow-xs"
                 aria-hidden="true"
               />
             )}
@@ -86,8 +86,8 @@ export function Tabs({
                 <span
                   className={`rounded-full px-1.5 py-0.5 text-[11px] font-semibold tabular-nums ${
                     selected
-                      ? "bg-brand-500/20 text-brand-300"
-                      : "bg-slate-800 text-slate-400"
+                      ? "bg-forest-700 text-white"
+                      : "bg-brand-100 text-brand-800"
                   }`}
                 >
                   {tab.count}

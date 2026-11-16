@@ -153,19 +153,19 @@ export function DonateForm({ campaignId, deadline, status, onSuccess }: DonateFo
     <div className="glass rounded-2xl p-6 space-y-5">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h3 className="text-lg font-semibold text-white">Contribute to Escrow</h3>
-          <p className="mt-0.5 text-xs text-slate-400">
+          <h3 className="text-lg font-semibold text-slate-900">Contribute to Escrow</h3>
+          <p className="mt-0.5 text-xs text-slate-600">
             Exact-amount allowance is requested—never unlimited token approvals.
           </p>
         </div>
-        <HeartHandshake className="h-5 w-5 text-brand-400" aria-hidden="true" />
+        <HeartHandshake className="h-5 w-5 text-forest-700" aria-hidden="true" />
       </div>
 
       {address && (
-        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-slate-800/80 bg-slate-900/60 px-3.5 py-2.5 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-brand-200 bg-brand-50/80 px-3.5 py-2.5 text-xs">
           <div>
-            <span className="text-slate-400">Your MockUSDC: </span>
-            <span className="font-semibold text-white tabular-nums">
+            <span className="text-slate-600">Your MockUSDC: </span>
+            <span className="font-semibold text-slate-900 tabular-nums">
               {formatUSDCFull(balance)} USDC
             </span>
           </div>
@@ -173,7 +173,7 @@ export function DonateForm({ campaignId, deadline, status, onSuccess }: DonateFo
             type="button"
             disabled={waitFaucet}
             onClick={handleFaucet}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-brand-500/30 bg-brand-500/15 px-2.5 py-1 font-medium text-brand-300 transition hover:bg-brand-500/25 cursor-pointer"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-brand-300 bg-white px-2.5 py-1 font-semibold text-brand-700 transition hover:bg-brand-100 cursor-pointer"
           >
             <Droplets className="h-3.5 w-3.5" aria-hidden="true" />
             Claim 1,000 Test USDC
@@ -182,7 +182,7 @@ export function DonateForm({ campaignId, deadline, status, onSuccess }: DonateFo
       )}
 
       {!windowOpen ? (
-        <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-300">
+        <div className="rounded-xl border border-brand-200 bg-brand-50/70 p-4 text-xs text-slate-700">
           Fundraising window is currently closed or passed (`{status}`). Donations are locked once the deadline expires.
         </div>
       ) : (
@@ -198,7 +198,7 @@ export function DonateForm({ campaignId, deadline, status, onSuccess }: DonateFo
           />
 
           {Boolean(isPaused) && (
-            <p className="rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs font-medium text-rose-300">
+            <p className="rounded-lg border border-rose-300 bg-rose-50 px-3 py-2 text-xs font-medium text-rose-800">
               Contract is currently paused by admin; new deposits are disabled while refunds remain open.
             </p>
           )}
@@ -206,6 +206,7 @@ export function DonateForm({ campaignId, deadline, status, onSuccess }: DonateFo
           <div className="space-y-2">
             <TransactionButton
               fullWidth
+              variant={needsApproval ? "primary" : "forest"}
               disabled={!parsedAmount || Boolean(inputError) || Boolean(isPaused)}
               loading={usdcWrite.isPending || ledgerWrite.isPending}
               onClick={handleApproveOrDonate}
@@ -223,7 +224,7 @@ export function DonateForm({ campaignId, deadline, status, onSuccess }: DonateFo
               )}
             </TransactionButton>
 
-            <p className="text-center text-[11px] text-slate-500">
+            <p className="text-center text-[11px] text-slate-600">
               Current allowance: {formatUSDCFull(allowance)} USDC
             </p>
           </div>

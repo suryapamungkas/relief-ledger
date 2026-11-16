@@ -55,10 +55,10 @@ export function CampaignList({ campaigns, loading, configured }: CampaignListPro
     <section aria-labelledby="campaigns-heading" className="space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 id="campaigns-heading" className="text-2xl font-bold tracking-tight text-white">
+          <h2 id="campaigns-heading" className="text-2xl font-bold tracking-tight text-slate-900">
             Relief Campaigns
           </h2>
-          <p className="mt-1 text-sm text-slate-400">
+          <p className="mt-1 text-sm text-slate-600">
             Every campaign enforces milestone caps, verifier majority sign-off, and verifiable delivery proof.
           </p>
         </div>
@@ -68,7 +68,7 @@ export function CampaignList({ campaigns, loading, configured }: CampaignListPro
             Search campaigns by ID, organizer address, or metadata CID
           </label>
           <Search
-            className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500"
+            className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-700"
             aria-hidden="true"
           />
           <input
@@ -77,7 +77,7 @@ export function CampaignList({ campaigns, loading, configured }: CampaignListPro
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search ID, address, CID…"
-            className="w-full rounded-xl border border-slate-800 bg-slate-900/80 py-2 pl-10 pr-4 text-sm text-slate-100 placeholder:text-slate-500 focus:border-brand-500 focus:outline-none"
+            className="w-full rounded-xl border border-brand-300 bg-white py-2 pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-500 focus:border-brand-600 focus:outline-none"
           />
         </div>
       </div>
@@ -102,13 +102,13 @@ export function CampaignList({ campaigns, loading, configured }: CampaignListPro
           animate={{ opacity: 1 }}
           className="glass rounded-2xl p-10 text-center"
         >
-          <ShieldOff className="mx-auto h-10 w-10 text-slate-500" aria-hidden="true" />
-          <h3 className="mt-3 text-base font-semibold text-white">
+          <ShieldOff className="mx-auto h-10 w-10 text-brand-700" aria-hidden="true" />
+          <h3 className="mt-3 text-base font-semibold text-slate-900">
             {!configured
               ? "Sepolia Contract Address Not Configured"
               : "No campaigns match your current filter"}
           </h3>
-          <p className="mx-auto mt-1.5 max-w-lg text-sm text-slate-400">
+          <p className="mx-auto mt-1.5 max-w-lg text-sm text-slate-600">
             {!configured
               ? "Set VITE_RELIEF_LEDGER_ADDRESS and VITE_MOCK_USDC_ADDRESS in web/.env (or run scripts/Deploy.s.sol + SeedDemo.s.sol on Sepolia) to connect live escrow campaigns."
               : "Try selecting the All status tab or clearing your search query."}

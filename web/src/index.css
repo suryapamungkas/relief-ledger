@@ -1,35 +1,65 @@
 @import "tailwindcss";
 
-/* ─── Design tokens ─── */
+/* ─── Design tokens: Sky Blue + Crisp White with Forest Green focal accents ─── */
 @theme {
-  --color-brand-50: #f0fdfa;
-  --color-brand-100: #ccfbf1;
-  --color-brand-200: #99f6e4;
-  --color-brand-300: #5eead4;
-  --color-brand-400: #2dd4bf;
-  --color-brand-500: #14b8a6;
-  --color-brand-600: #0d9488;
-  --color-brand-700: #0f766e;
-  --color-brand-800: #115e59;
-  --color-brand-900: #134e4a;
-  --color-brand-950: #042f2e;
+  /* Primary Brand: Sky Blue */
+  --color-brand-50: #f0f9ff;
+  --color-brand-100: #e0f2fe;
+  --color-brand-200: #bae6fd;
+  --color-brand-300: #7dd3fc;
+  --color-brand-400: #38bdf8;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0284c7;
+  --color-brand-700: #0369a1;
+  --color-brand-800: #075985;
+  --color-brand-900: #0c4a6e;
+  --color-brand-950: #082f49;
 
-  --color-accent-400: #34d399;
-  --color-accent-500: #10b981;
+  /* Striking Focal Accent: Forest Green */
+  --color-forest-50: #f0fdf4;
+  --color-forest-100: #dcfce7;
+  --color-forest-200: #bbf7d0;
+  --color-forest-300: #86efac;
+  --color-forest-400: #4ade80;
+  --color-forest-500: #16a34a;
+  --color-forest-600: #15803d;
+  --color-forest-700: #166534;
+  --color-forest-800: #14532d;
+  --color-forest-900: #052e16;
 
-  --color-surface-0: #020617;
-  --color-surface-50: #0f172a;
-  --color-surface-100: #1e293b;
-  --color-surface-200: #334155;
-  --color-surface-300: #475569;
+  /* Semantic accent aliases mapped to Forest Green */
+  --color-accent-400: #16a34a;
+  --color-accent-500: #15803d;
+  --color-accent-600: #166534;
+  --color-accent-700: #14532d;
+
+  /* Surfaces: Crisp White & Sky Mist */
+  --color-surface-0: #ffffff;
+  --color-surface-50: #f0f9ff;
+  --color-surface-100: #e0f2fe;
+  --color-surface-200: #bae6fd;
+  --color-surface-300: #7dd3fc;
 
   --font-display: "Inter", system-ui, -apple-system, sans-serif;
 }
 
-/* ─── Base & Accessibility ─── */
+/* ─── Base, Browser UI Theming & Accessibility ─── */
+:root {
+  --scrollbar-thumb: #0284c7;
+  --scrollbar-track: #f0f9ff;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --scrollbar-thumb: #082f49;
+    --scrollbar-track: #ffffff;
+  }
+}
+
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -39,8 +69,15 @@ html {
 }
 
 body {
-  background: var(--color-surface-0);
+  background: var(--color-surface-50);
+  color: #0f172a;
+  accent-color: var(--color-forest-700);
   font-family: var(--font-display);
+}
+
+::selection {
+  background: var(--color-brand-200);
+  color: var(--color-brand-950);
 }
 
 .visually-hidden {
@@ -61,8 +98,8 @@ body {
   z-index: 100;
   padding: 0.625rem 1rem;
   border-radius: 0.75rem;
-  background: var(--color-brand-500);
-  color: #020617;
+  background: var(--color-forest-700);
+  color: #ffffff;
   font-weight: 700;
   transition: top 0.15s ease;
 }
@@ -72,7 +109,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-brand-400);
+  outline: 2px solid var(--color-brand-700);
   outline-offset: 2px;
 }
 
@@ -80,13 +117,21 @@ body {
   :focus-visible {
     outline: 2px solid Highlight;
   }
+
+  .glass,
+  dialog.rl-dialog {
+    border: 1px solid CanvasText;
+  }
 }
 
-/* ─── Glass cards & glows ─── */
+/* ─── Daylight White Glass Cards & Sky/Forest Elevation ─── */
 .glass {
-  background: rgba(15, 23, 42, 0.68);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(148, 163, 184, 0.14);
+  border: 1px solid rgba(2, 132, 199, 0.24);
+  box-shadow:
+    0 10px 30px -12px rgba(3, 105, 161, 0.1),
+    0 4px 12px -4px rgba(15, 23, 42, 0.05);
 }
 
 .glass-hover {
@@ -94,16 +139,27 @@ body {
 }
 
 .glass-hover:hover {
-  background: rgba(15, 23, 42, 0.85);
-  border-color: rgba(45, 212, 191, 0.35);
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.5);
+  box-shadow:
+    0 16px 36px -10px rgba(3, 105, 161, 0.16),
+    0 6px 16px -4px rgba(15, 23, 42, 0.06);
 }
 
 .glow-brand {
-  box-shadow: 0 0 40px rgba(13, 148, 136, 0.16), 0 0 80px rgba(13, 148, 136, 0.06);
+  box-shadow:
+    0 18px 46px -12px rgba(14, 165, 233, 0.2),
+    0 6px 18px -6px rgba(3, 105, 161, 0.1);
 }
 
 .glow-sm {
-  box-shadow: 0 0 22px rgba(20, 184, 166, 0.12);
+  box-shadow: 0 8px 24px -4px rgba(14, 165, 233, 0.18);
+}
+
+.glow-forest {
+  box-shadow:
+    0 12px 28px -6px rgba(22, 101, 52, 0.3),
+    0 4px 10px -2px rgba(20, 83, 45, 0.16);
 }
 
 /* ─── Shimmer skeleton ─── */
@@ -116,7 +172,7 @@ body {
   background: linear-gradient(
     90deg,
     var(--color-surface-100) 25%,
-    var(--color-surface-200) 50%,
+    var(--color-surface-50) 50%,
     var(--color-surface-100) 75%
   );
   background-size: 200% 100%;
@@ -129,12 +185,14 @@ body {
   }
 }
 
-/* ─── Gradient mesh background ─── */
+/* ─── Sky Blue & Crisp White Mesh Background ─── */
 .mesh-gradient {
-  background:
-    radial-gradient(ellipse at 20% 0%, rgba(13, 148, 136, 0.16) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(16, 185, 129, 0.11) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 45%, rgba(6, 95, 70, 0.06) 0%, transparent 70%);
+  background-color: #f4faff;
+  background-image:
+    radial-gradient(ellipse at 14% 0%, rgba(56, 189, 248, 0.26) 0%, transparent 52%),
+    radial-gradient(ellipse at 88% 12%, rgba(186, 230, 253, 0.55) 0%, transparent 48%),
+    radial-gradient(ellipse at 82% 96%, rgba(22, 101, 52, 0.07) 0%, transparent 50%),
+    linear-gradient(180deg, #f0f9ff 0%, #ffffff 48%, #f0f9ff 100%);
 }
 
 /* ─── Form validation after user interaction ─── */
@@ -144,25 +202,25 @@ body {
 
 .rl-input:user-invalid,
 .rl-input[aria-invalid="true"] {
-  border-color: rgb(244 63 94 / 0.8);
-  box-shadow: 0 0 0 3px rgb(244 63 94 / 0.14);
+  border-color: rgb(225 29 72 / 0.85);
+  box-shadow: 0 0 0 3px rgb(225 29 72 / 0.14);
 }
 
-.rl-input:user-valid:not([aria-invalid="true"]) {
-  border-color: rgb(20 184 166 / 0.55);
+.rl-input:not([type="range"]):user-valid:not([aria-invalid="true"]) {
+  border-color: rgb(22 101 52 / 0.65);
 }
 
 /* ─── Native top-layer <dialog> modal animations ─── */
 dialog.rl-dialog {
   margin: auto;
   padding: 0;
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  border: 1px solid rgba(2, 132, 199, 0.28);
   border-radius: 1.25rem;
-  background: rgba(15, 23, 42, 0.96);
-  color: #f1f5f9;
+  background: #ffffff;
+  color: #0f172a;
   max-width: min(34rem, calc(100vw - 2rem));
   width: 100%;
-  box-shadow: 0 24px 64px rgba(2, 6, 23, 0.75);
+  box-shadow: 0 24px 64px rgba(12, 74, 110, 0.22);
   opacity: 0;
   transform: translateY(14px) scale(0.97);
   transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
@@ -182,8 +240,8 @@ dialog.rl-dialog:modal {
 }
 
 dialog.rl-dialog::backdrop {
-  background: rgba(2, 6, 23, 0.72);
-  backdrop-filter: blur(8px);
+  background: rgba(12, 74, 110, 0.36);
+  backdrop-filter: blur(6px);
   overscroll-behavior: contain;
   opacity: 0;
   transition: opacity 0.22s ease;
@@ -241,9 +299,9 @@ dialog.rl-dialog.is-closing {
     gap: 0.375rem;
     padding: 0.875rem;
     margin-bottom: 0.75rem;
-    border: 1px solid rgba(148, 163, 184, 0.14);
+    border: 1px solid rgba(2, 132, 199, 0.24);
     border-radius: 0.875rem;
-    background: rgba(15, 23, 42, 0.55);
+    background: #f8fcff;
   }
 
   .rl-table td {
@@ -258,7 +316,7 @@ dialog.rl-dialog.is-closing {
 
   .rl-table td::before {
     content: attr(data-label);
-    color: #94a3b8;
+    color: #0369a1;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -267,13 +325,15 @@ dialog.rl-dialog.is-closing {
   }
 }
 
-/* ─── Scrollbar ─── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--color-surface-0); }
-::-webkit-scrollbar-thumb {
-  background: var(--color-surface-200);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-surface-300);
+/* ─── Legacy WebKit Scrollbar Fallback ─── */
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand-800);
+  }
 }

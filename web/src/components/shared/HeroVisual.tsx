@@ -70,11 +70,11 @@ export function HeroVisual() {
   return (
     <div className="glass glow-brand relative overflow-hidden rounded-3xl p-5 sm:p-6">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-500/30 bg-brand-500/10 px-2.5 py-0.5 text-[11px] font-semibold text-brand-300">
-          <CheckCircle2 className="h-3 w-3" aria-hidden="true" />
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-forest-600/30 bg-forest-50 px-2.5 py-0.5 text-[11px] font-semibold text-forest-800">
+          <CheckCircle2 className="h-3 w-3 text-forest-700" aria-hidden="true" />
           Interactive Escrow Architecture
         </span>
-        <span className="text-[11px] text-slate-400">Tap any stage to inspect</span>
+        <span className="text-[11px] font-medium text-slate-600">Tap any stage to inspect</span>
       </div>
 
       {/* Animated SVG Graph */}
@@ -86,9 +86,9 @@ export function HeroVisual() {
       >
         <defs>
           <linearGradient id="rlFlowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.35" />
-            <stop offset="50%" stopColor="#34d399" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#2dd4bf" stopOpacity="0.35" />
+            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.45" />
+            <stop offset="50%" stopColor="#166534" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#0284c7" stopOpacity="0.45" />
           </linearGradient>
         </defs>
 
@@ -96,7 +96,7 @@ export function HeroVisual() {
         <path
           d="M 78 76 L 382 76 L 382 135 L 230 135 L 230 194 L 382 194"
           fill="none"
-          stroke="rgba(148,163,184,0.18)"
+          stroke="rgba(2, 132, 199, 0.2)"
           strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -119,14 +119,14 @@ export function HeroVisual() {
         <path
           d="M 205 194 Q 108 196 78 122"
           fill="none"
-          stroke="rgba(245,158,11,0.34)"
+          stroke="rgba(180, 83, 9, 0.45)"
           strokeWidth="1.75"
           strokeDasharray="4 4"
         />
-        <text x="26" y="162" fill="rgba(251,191,36,0.85)" fontSize="9.5" fontWeight="600">
+        <text x="26" y="162" fill="#92400e" fontSize="9.5" fontWeight="700">
           Refund Guard
         </text>
-        <text x="26" y="174" fill="rgba(251,191,36,0.7)" fontSize="8.5" fontWeight="500">
+        <text x="26" y="174" fill="#b45309" fontSize="8.5" fontWeight="600">
           Missed / Stall / Leftover
         </text>
 
@@ -152,8 +152,8 @@ export function HeroVisual() {
               {isSelected && (
                 <motion.circle
                   r={33}
-                  fill="rgba(20, 184, 166, 0.14)"
-                  stroke="rgba(45, 212, 191, 0.55)"
+                  fill="rgba(22, 101, 52, 0.14)"
+                  stroke="rgba(22, 101, 52, 0.55)"
                   strokeWidth="1.5"
                   initial={{ scale: 0.85, opacity: 0.6 }}
                   animate={{ scale: [1, 1.12, 1], opacity: [0.85, 0.4, 0.85] }}
@@ -162,14 +162,14 @@ export function HeroVisual() {
               )}
               <circle
                 r={25}
-                fill={isSelected ? "#0f766e" : "#0f172a"}
-                stroke={isSelected ? "#2dd4bf" : "#334155"}
+                fill={isSelected ? "#166534" : "#f0f9ff"}
+                stroke={isSelected ? "#14532d" : "#0284c7"}
                 strokeWidth={isSelected ? 2 : 1.5}
               />
               <text
                 y="4"
                 textAnchor="middle"
-                fill={isSelected ? "#ffffff" : "#94a3b8"}
+                fill={isSelected ? "#ffffff" : "#0369a1"}
                 fontSize="12"
                 fontWeight="700"
               >
@@ -178,9 +178,9 @@ export function HeroVisual() {
               <text
                 y="41"
                 textAnchor="middle"
-                fill={isSelected ? "#5eead4" : "#cbd5e1"}
+                fill={isSelected ? "#14532d" : "#1e293b"}
                 fontSize="10.5"
-                fontWeight="600"
+                fontWeight={isSelected ? "700" : "600"}
               >
                 {node.label.replace(/^\d+\.\s*/, "")}
               </text>
@@ -195,18 +195,18 @@ export function HeroVisual() {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.22 }}
-        className="mt-3 rounded-2xl border border-slate-800/90 bg-slate-900/80 p-3.5"
+        className="mt-3 rounded-2xl border border-brand-200 bg-brand-50/80 p-3.5"
       >
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2 text-sm font-semibold text-white">
-            <active.icon className="h-4 w-4 text-brand-400" aria-hidden="true" />
+          <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+            <active.icon className="h-4 w-4 text-forest-700" aria-hidden="true" />
             <span>{active.label}</span>
           </div>
-          <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-300">
+          <span className="rounded-full border border-forest-800 bg-forest-700 px-2.5 py-0.5 text-[11px] font-semibold text-white">
             {active.badge}
           </span>
         </div>
-        <p className="mt-1.5 text-xs leading-relaxed text-slate-300">{active.detail}</p>
+        <p className="mt-1.5 text-xs leading-relaxed text-slate-700">{active.detail}</p>
       </motion.div>
     </div>
   );

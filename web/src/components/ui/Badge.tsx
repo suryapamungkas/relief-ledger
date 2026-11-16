@@ -9,15 +9,15 @@ interface BadgeProps {
 }
 
 const variantConfig: Record<BadgeVariant, { dot: string; bg: string; text: string }> = {
-  fundraising: { dot: "bg-blue-400", bg: "bg-blue-900/30 border-blue-700/50", text: "text-blue-300" },
-  active: { dot: "bg-emerald-400", bg: "bg-emerald-900/30 border-emerald-700/50", text: "text-emerald-300" },
-  completed: { dot: "bg-teal-400", bg: "bg-teal-900/30 border-teal-700/50", text: "text-teal-300" },
-  refunding: { dot: "bg-amber-400", bg: "bg-amber-900/30 border-amber-700/50", text: "text-amber-300" },
-  proposed: { dot: "bg-purple-400", bg: "bg-purple-900/30 border-purple-700/50", text: "text-purple-300" },
-  vetoed: { dot: "bg-red-400", bg: "bg-red-900/30 border-red-700/50", text: "text-red-300" },
-  cancelled: { dot: "bg-slate-400", bg: "bg-slate-800/50 border-slate-700/50", text: "text-slate-400" },
-  executed: { dot: "bg-green-400", bg: "bg-green-900/30 border-green-700/50", text: "text-green-300" },
-  default: { dot: "bg-slate-400", bg: "bg-slate-800/50 border-slate-700/50", text: "text-slate-400" },
+  fundraising: { dot: "bg-brand-600", bg: "bg-brand-50 border-brand-300", text: "text-brand-800" },
+  active: { dot: "bg-forest-600", bg: "bg-forest-50 border-forest-600/40", text: "text-forest-800 font-semibold" },
+  completed: { dot: "bg-forest-700", bg: "bg-forest-100 border-forest-700/45", text: "text-forest-900 font-semibold" },
+  refunding: { dot: "bg-amber-600", bg: "bg-amber-50 border-amber-300", text: "text-amber-900" },
+  proposed: { dot: "bg-brand-700", bg: "bg-brand-100/80 border-brand-300", text: "text-brand-900" },
+  vetoed: { dot: "bg-rose-600", bg: "bg-rose-50 border-rose-300", text: "text-rose-800" },
+  cancelled: { dot: "bg-slate-500", bg: "bg-slate-100 border-slate-300", text: "text-slate-700" },
+  executed: { dot: "bg-forest-600", bg: "bg-forest-100 border-forest-600/40", text: "text-forest-900 font-semibold" },
+  default: { dot: "bg-slate-500", bg: "bg-slate-100 border-slate-300", text: "text-slate-700" },
 };
 
 export function statusToBadgeVariant(status: number): BadgeVariant {

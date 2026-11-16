@@ -6,7 +6,7 @@ interface ButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   loading?: boolean;
-  variant?: "primary" | "secondary" | "danger" | "ghost";
+  variant?: "primary" | "forest" | "secondary" | "danger" | "ghost";
   size?: "sm" | "md" | "lg";
   type?: "button" | "submit" | "reset";
   className?: string;
@@ -15,13 +15,15 @@ interface ButtonProps {
 
 const variantStyles = {
   primary:
-    "bg-brand-600 hover:bg-brand-500 text-white shadow-lg shadow-brand-900/40",
+    "bg-brand-700 hover:bg-brand-800 text-white shadow-md shadow-brand-700/20 border border-brand-800",
+  forest:
+    "bg-forest-700 hover:bg-forest-800 text-white shadow-md shadow-forest-800/25 border border-forest-800",
   secondary:
-    "bg-surface-100 hover:bg-surface-200 text-slate-200 border border-slate-700/50",
+    "bg-white hover:bg-brand-50 text-brand-900 border border-brand-300 shadow-2xs",
   danger:
-    "bg-red-900/60 hover:bg-red-800/80 text-red-200 border border-red-700/50",
+    "bg-rose-700 hover:bg-rose-800 text-white border border-rose-800 shadow-xs",
   ghost:
-    "bg-transparent hover:bg-surface-100 text-slate-300 border border-transparent hover:border-slate-700/50",
+    "bg-transparent hover:bg-brand-100/70 text-slate-700 border border-transparent hover:border-brand-200",
 };
 
 const sizeStyles = {
@@ -54,7 +56,7 @@ export function Button({
       className={[
         "relative inline-flex items-center justify-center gap-2 rounded-lg font-medium",
         "transition-colors duration-150 cursor-pointer",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-0",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 focus-visible:ring-offset-white",
         variantStyles[variant],
         sizeStyles[size],
         isDisabled ? "opacity-50 cursor-not-allowed pointer-events-none" : "",

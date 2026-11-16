@@ -95,8 +95,8 @@ export function Verifier() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-white">Verifier Queue</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-3xl font-bold text-slate-900">Verifier Queue</h1>
+        <p className="mt-1 text-sm text-slate-600">
           Review pending vendor payout requests on campaigns where you sit on the verifier committee. Any single verifier may veto suspicious requests during the challenge window.
         </p>
       </div>
@@ -107,18 +107,22 @@ export function Verifier() {
           <div className="skeleton h-36 rounded-2xl" />
         </div>
       ) : !address ? (
-        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-300">
+        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-700">
           Connect a verifier wallet on Sepolia to view assigned campaigns and open payout approvals.
         </div>
       ) : myCampaigns.length === 0 ? (
-        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-300">
-          Your address (<code className="text-brand-300">{address}</code>) is not listed on any campaign verifier committee.
+        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-700">
+          Your address (
+          <code className="rounded bg-brand-50 px-1.5 py-0.5 font-semibold text-brand-800">
+            {address}
+          </code>
+          ) is not listed on any campaign verifier committee.
         </div>
       ) : (
         <div className="space-y-6">
           <section className="glass rounded-2xl p-5">
-            <div className="flex items-center gap-2 text-sm font-semibold text-white">
-              <ShieldCheck className="h-4 w-4 text-brand-400" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+              <ShieldCheck className="h-4 w-4 text-forest-700" aria-hidden="true" />
               Assigned Campaigns ({myCampaigns.length})
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -126,31 +130,31 @@ export function Verifier() {
                 <Link
                   key={c.id}
                   to={`/campaign/${c.id}`}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-700/80 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-brand-500/50"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-brand-300 bg-brand-50 px-3 py-1.5 text-xs font-semibold text-brand-900 hover:bg-brand-100"
                 >
                   Campaign #{c.id} ({c.status})
-                  <ArrowRight className="h-3.5 w-3.5 text-brand-400" aria-hidden="true" />
+                  <ArrowRight className="h-3.5 w-3.5 text-forest-700" aria-hidden="true" />
                 </Link>
               ))}
             </div>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-lg font-semibold text-white">
+            <h2 className="text-lg font-semibold text-slate-900">
               Open Payout Requests Requiring Action ({tasks.length})
             </h2>
             {tasks.length === 0 ? (
-              <div className="glass rounded-2xl p-6 text-sm text-slate-400">
+              <div className="glass rounded-2xl p-6 text-sm text-slate-600">
                 All assigned campaigns currently have zero pending payout proposals.
               </div>
             ) : (
               tasks.map((t) => (
                 <div key={t.request.id} className="space-y-2">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                  <div className="flex items-center justify-between text-xs text-slate-600">
                     <span>Campaign #{t.campaignId}</span>
                     <Link
                       to={`/campaign/${t.campaignId}`}
-                      className="text-brand-400 hover:underline"
+                      className="font-semibold text-brand-700 hover:underline"
                     >
                       Open full campaign page for IPFS CID & Ledger
                     </Link>

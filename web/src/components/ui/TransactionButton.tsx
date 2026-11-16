@@ -10,7 +10,7 @@ interface TransactionButtonProps {
   onClick: () => void;
   disabled?: boolean;
   loading?: boolean;
-  variant?: "primary" | "secondary" | "danger" | "ghost";
+  variant?: "primary" | "forest" | "secondary" | "danger" | "ghost";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   className?: string;
@@ -44,7 +44,7 @@ export function TransactionButton({
             size={size}
             fullWidth={fullWidth}
             onClick={openConnectModal}
-            className={className}
+            className={`border-brand-300 bg-brand-50 text-brand-900 hover:bg-brand-100 ${className}`}
           >
             Connect Wallet to Continue
           </Button>
@@ -62,7 +62,7 @@ export function TransactionButton({
         fullWidth={fullWidth}
         loading={isSwitching}
         onClick={() => switchChain({ chainId: SEPOLIA_CHAIN_ID })}
-        className={`border-amber-500/40 bg-amber-500/15 text-amber-200 hover:bg-amber-500/25 ${className}`}
+        className={`border-amber-400 bg-amber-50 text-amber-950 hover:bg-amber-100 ${className}`}
       >
         <ArrowRightLeft className="h-4 w-4" aria-hidden="true" />
         Switch Network to Sepolia

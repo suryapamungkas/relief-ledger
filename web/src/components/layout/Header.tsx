@@ -46,31 +46,31 @@ export function Header() {
   const wrongNetwork = isConnected && chainId !== SEPOLIA_CHAIN_ID;
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-brand-200/80 bg-white/88 backdrop-blur-xl shadow-xs">
       {/* Scroll Progress Indicator */}
       <motion.div
         style={{ scaleX, transformOrigin: "0% 50%" }}
-        className="h-0.5 w-full bg-gradient-to-r from-brand-500 via-accent-400 to-cyan-400"
+        className="h-0.5 w-full bg-gradient-to-r from-brand-500 via-forest-700 to-brand-400"
         aria-hidden="true"
       />
 
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link
           to="/"
-          className="group inline-flex items-center gap-2.5 rounded-xl py-1 pr-2 text-white transition hover:opacity-90"
+          className="group inline-flex items-center gap-2.5 rounded-xl py-1 pr-2 text-slate-900 transition hover:opacity-90"
         >
           <img
             src="/logo.svg"
             alt=""
-            className="h-8 w-8 rounded-lg shadow-sm"
+            className="h-8 w-8 rounded-lg shadow-xs"
             width={32}
             height={32}
           />
           <div className="leading-tight">
-            <span className="block text-base font-bold tracking-tight text-white">
-              Relief<span className="text-brand-400">Ledger</span>
+            <span className="block text-base font-bold tracking-tight text-slate-900">
+              Relief<span className="text-brand-700">Ledger</span>
             </span>
-            <span className="block text-[10px] font-medium uppercase tracking-widest text-slate-400">
+            <span className="block text-[10px] font-semibold uppercase tracking-widest text-brand-700">
               Sepolia Escrow
             </span>
           </div>
@@ -90,14 +90,14 @@ export function Header() {
                 to={item.to}
                 aria-current={active ? "page" : undefined}
                 className={`relative rounded-xl px-3.5 py-2 text-sm font-medium transition-colors ${
-                  active ? "text-white" : "text-slate-400 hover:text-slate-100"
+                  active ? "font-semibold text-brand-950" : "text-slate-600 hover:text-brand-700"
                 }`}
               >
                 {active && (
                   <motion.span
                     layoutId="header-nav-pill"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    className="absolute inset-0 rounded-xl border border-brand-500/30 bg-brand-500/15"
+                    className="absolute inset-0 rounded-xl border border-brand-300 bg-brand-100/80"
                     aria-hidden="true"
                   />
                 )}
@@ -109,14 +109,14 @@ export function Header() {
 
         <div className="flex items-center gap-2.5">
           {Boolean(isPaused) && (
-            <span className="hidden items-center gap-1 rounded-full border border-rose-500/40 bg-rose-500/15 px-2.5 py-1 text-xs font-semibold text-rose-300 sm:inline-flex">
+            <span className="hidden items-center gap-1 rounded-full border border-rose-300 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-800 sm:inline-flex">
               <PauseCircle className="h-3.5 w-3.5" aria-hidden="true" />
               Paused
             </span>
           )}
 
           {wrongNetwork && (
-            <span className="hidden items-center gap-1 rounded-full border border-amber-500/40 bg-amber-500/15 px-2.5 py-1 text-xs font-semibold text-amber-300 lg:inline-flex">
+            <span className="hidden items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-900 lg:inline-flex">
               Wrong Network
             </span>
           )}
@@ -131,7 +131,7 @@ export function Header() {
             aria-controls="mobile-nav-drawer"
             aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
             onClick={() => setMobileOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800 bg-slate-900 text-slate-300 hover:border-slate-700 hover:text-white md:hidden cursor-pointer"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-brand-200 bg-white text-slate-700 hover:border-brand-400 hover:bg-brand-50 hover:text-brand-900 md:hidden cursor-pointer"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -148,7 +148,7 @@ export function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="overflow-hidden border-t border-slate-800/80 bg-slate-950/95 px-4 md:hidden"
+            className="overflow-hidden border-t border-brand-200/80 bg-white/95 px-4 md:hidden"
           >
             <div className="flex flex-col gap-1.5 py-4">
               {navItems.map((item) => {
@@ -164,12 +164,12 @@ export function Header() {
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center justify-between rounded-xl px-4 py-2.5 text-sm font-medium ${
                       active
-                        ? "border border-brand-500/30 bg-brand-500/15 text-brand-200"
-                        : "text-slate-300 hover:bg-slate-900"
+                        ? "border border-brand-300 bg-brand-100/80 font-semibold text-brand-950"
+                        : "text-slate-700 hover:bg-brand-50"
                     }`}
                   >
                     <span>{item.label}</span>
-                    {active && <ShieldCheck className="h-4 w-4 text-brand-400" />}
+                    {active && <ShieldCheck className="h-4 w-4 text-forest-700" />}
                   </Link>
                 );
               })}

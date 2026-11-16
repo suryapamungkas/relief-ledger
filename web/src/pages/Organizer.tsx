@@ -151,15 +151,15 @@ export function Organizer() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-white">Organizer Console</h1>
-        <p className="mt-1 text-sm text-slate-400">
+        <h1 className="text-3xl font-bold text-slate-900">Organizer Console</h1>
+        <p className="mt-1 text-sm text-slate-600">
           Propose invoice-backed vendor payouts and submit milestone delivery evidence to unlock subsequent tranches.
         </p>
       </div>
 
       {/* Privacy notice per SPEC §9.3 */}
-      <div className="flex items-start gap-3 rounded-2xl border border-amber-500/30 bg-amber-950/30 p-4 text-xs text-amber-200">
-        <AlertTriangle className="h-4 w-4 shrink-0 text-amber-400 mt-0.5" aria-hidden="true" />
+      <div className="flex items-start gap-3 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-xs text-amber-950">
+        <AlertTriangle className="h-4 w-4 shrink-0 text-amber-700 mt-0.5" aria-hidden="true" />
         <p>
           <strong>Public IPFS Warning:</strong> Uploaded invoices and delivery photos become permanently public on IPFS, and EXIF metadata is not stripped automatically. Remove sensitive metadata before uploading.
         </p>
@@ -168,12 +168,16 @@ export function Organizer() {
       {loading ? (
         <div className="skeleton h-40 rounded-2xl" />
       ) : !address ? (
-        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-300">
+        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-700">
           Connect your organizer wallet on Sepolia to manage campaigns.
         </div>
       ) : myCampaigns.length === 0 ? (
-        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-300">
-          Your connected address (<code className="text-brand-300">{address}</code>) is not the organizer of any active campaign yet.
+        <div className="glass rounded-2xl p-8 text-center text-sm text-slate-700">
+          Your connected address (
+          <code className="rounded bg-brand-50 px-1.5 py-0.5 font-semibold text-brand-800">
+            {address}
+          </code>
+          ) is not the organizer of any active campaign yet.
         </div>
       ) : (
         <>
@@ -184,16 +188,16 @@ export function Organizer() {
                 type="button"
                 onClick={() => setSelectedId(String(c.id))}
                 className={`glass text-left rounded-2xl p-5 transition cursor-pointer ${
-                  selectedId === String(c.id) ? "border-brand-400/60 glow-sm" : "glass-hover"
+                  selectedId === String(c.id) ? "border-brand-600 glow-sm" : "glass-hover"
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-bold text-white">Campaign #{c.id}</span>
+                  <span className="font-bold text-slate-900">Campaign #{c.id}</span>
                   <Badge label={c.status} variant={statusToBadgeVariant(STATUS_MAP[c.status] ?? 0)} />
                 </div>
-                <p className="mt-2 text-xs text-slate-400">
+                <p className="mt-2 text-xs text-slate-600">
                   Milestone {c.currentMilestone + 1} / {c.milestoneBps.length} ·{" "}
-                  <Link to={`/campaign/${c.id}`} className="text-brand-400 hover:underline">
+                  <Link to={`/campaign/${c.id}`} className="font-semibold text-brand-700 hover:underline">
                     View details
                   </Link>
                 </p>
@@ -204,16 +208,16 @@ export function Organizer() {
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Propose Vendor Payout */}
             <div className="glass rounded-2xl p-6 space-y-5">
-              <div className="flex items-center gap-2 text-lg font-semibold text-white">
-                <Send className="h-5 w-5 text-brand-400" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                <Send className="h-5 w-5 text-brand-700" aria-hidden="true" />
                 Propose Vendor Payout (Campaign #{selectedId})
               </div>
 
               <div className="space-y-1.5">
-                <label htmlFor="org-vendor" className="block text-sm font-medium text-slate-200">
+                <label htmlFor="org-vendor" className="block text-sm font-semibold text-slate-800">
                   Allowlisted Vendor Address
                 </label>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-600">
                   Must be pre-registered by admin and cannot be an organizer or verifier.
                 </p>
                 <input
@@ -223,9 +227,9 @@ export function Organizer() {
                   onChange={(e) => setVendor(e.target.value)}
                   placeholder="0x..."
                   aria-invalid={Boolean(vendorError) || undefined}
-                  className="rl-input w-full rounded-xl border border-slate-700/80 bg-slate-900/90 px-4 py-2.5 font-mono text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-4 py-2.5 font-mono text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
-                {vendorError && <p className="text-xs text-rose-400">{vendorError}</p>}
+                {vendorError && <p className="text-xs font-medium text-rose-700">{vendorError}</p>}
               </div>
 
               <AmountInput
@@ -238,10 +242,10 @@ export function Organizer() {
               />
 
               <div className="space-y-2">
-                <label htmlFor="org-invoice-cid" className="block text-sm font-medium text-slate-200">
+                <label htmlFor="org-invoice-cid" className="block text-sm font-semibold text-slate-800">
                   Vendor Invoice IPFS CID
                 </label>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-600">
                   Contract hashes `keccak256(invoiceCid)` on-chain for audit verification.
                 </p>
                 <input
@@ -250,10 +254,10 @@ export function Organizer() {
                   value={invoiceCid}
                   onChange={(e) => setInvoiceCid(e.target.value)}
                   placeholder="ipfs://Qm..."
-                  className="rl-input w-full rounded-xl border border-slate-700/80 bg-slate-900/90 px-4 py-2.5 font-mono text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-4 py-2.5 font-mono text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
-                <label className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/70 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-brand-500/40 cursor-pointer">
-                  <FileUp className="h-3.5 w-3.5 text-brand-400" aria-hidden="true" />
+                <label className="inline-flex items-center gap-2 rounded-xl border border-brand-300 bg-brand-50 px-3 py-1.5 text-xs font-semibold text-brand-800 hover:bg-brand-100 cursor-pointer">
+                  <FileUp className="h-3.5 w-3.5 text-brand-700" aria-hidden="true" />
                   <span>{uploading ? "Uploading…" : "Upload Invoice (PNG/JPG/PDF <= 5 MB)"}</span>
                   <input
                     type="file"
@@ -266,6 +270,7 @@ export function Organizer() {
 
               <TransactionButton
                 fullWidth
+                variant="primary"
                 disabled={!isAddress(vendor) || !parsedAmount || invoiceCid.trim().length === 0}
                 loading={write.isPending}
                 onClick={submitPayoutProposal}
@@ -276,16 +281,16 @@ export function Organizer() {
 
             {/* Submit Delivery Proof */}
             <div className="glass rounded-2xl p-6 space-y-5">
-              <div className="flex items-center gap-2 text-lg font-semibold text-white">
-                <PackageCheck className="h-5 w-5 text-emerald-400" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+                <PackageCheck className="h-5 w-5 text-forest-700" aria-hidden="true" />
                 Submit Milestone Delivery Proof
               </div>
-              <p className="text-xs leading-relaxed text-slate-400">
+              <p className="text-xs leading-relaxed text-slate-600">
                 Requires at least one executed vendor payout in the current milestone and zero open payout requests. Unspent milestone funds roll forward—or convert into donor refunds after the final milestone.
               </p>
 
               <div className="space-y-2">
-                <label htmlFor="org-delivery-cid" className="block text-sm font-medium text-slate-200">
+                <label htmlFor="org-delivery-cid" className="block text-sm font-semibold text-slate-800">
                   Delivery Proof IPFS CID
                 </label>
                 <input
@@ -294,10 +299,10 @@ export function Organizer() {
                   value={deliveryCid}
                   onChange={(e) => setDeliveryCid(e.target.value)}
                   placeholder="ipfs://QmDelivery..."
-                  className="rl-input w-full rounded-xl border border-slate-700/80 bg-slate-900/90 px-4 py-2.5 font-mono text-sm text-white"
+                  className="rl-input w-full rounded-xl border border-brand-300 bg-white px-4 py-2.5 font-mono text-sm text-slate-900 focus:border-brand-600 focus:outline-none"
                 />
-                <label className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/70 px-3 py-1.5 text-xs font-medium text-slate-200 hover:border-brand-500/40 cursor-pointer">
-                  <FileUp className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+                <label className="inline-flex items-center gap-2 rounded-xl border border-forest-600/35 bg-forest-50 px-3 py-1.5 text-xs font-semibold text-forest-800 hover:bg-forest-100 cursor-pointer">
+                  <FileUp className="h-3.5 w-3.5 text-forest-700" aria-hidden="true" />
                   <span>{uploading ? "Uploading…" : "Upload Proof (PNG/JPG/PDF <= 5 MB)"}</span>
                   <input
                     type="file"
@@ -309,13 +314,14 @@ export function Organizer() {
               </div>
 
               {uploadNotice && (
-                <p className="rounded-xl border border-slate-700 bg-slate-900/70 p-3 text-xs text-slate-300">
+                <p className="rounded-xl border border-brand-200 bg-brand-50 p-3 text-xs text-slate-800">
                   {uploadNotice}
                 </p>
               )}
 
               <TransactionButton
                 fullWidth
+                variant="forest"
                 disabled={deliveryCid.trim().length === 0}
                 loading={write.isPending}
                 onClick={submitDeliveryProof}

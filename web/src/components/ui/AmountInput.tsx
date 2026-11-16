@@ -38,7 +38,7 @@ export function AmountInput({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between gap-2">
-        <label htmlFor={inputId} className="text-sm font-medium text-slate-200">
+        <label htmlFor={inputId} className="text-sm font-semibold text-slate-800">
           {label}
         </label>
         {onMaxClick && (
@@ -46,7 +46,7 @@ export function AmountInput({
             type="button"
             disabled={disabled}
             onClick={onMaxClick}
-            className="text-xs font-medium text-brand-400 transition hover:text-brand-300 disabled:opacity-50 cursor-pointer"
+            className="text-xs font-semibold text-forest-700 transition hover:text-forest-800 disabled:opacity-50 cursor-pointer"
           >
             {maxLabel}
           </button>
@@ -54,7 +54,7 @@ export function AmountInput({
       </div>
 
       {hint && (
-        <p id={hintId} className="text-xs text-slate-400">
+        <p id={hintId} className="text-xs text-slate-600">
           {hint}
         </p>
       )}
@@ -77,10 +77,10 @@ export function AmountInput({
           placeholder={placeholder}
           aria-invalid={hasError ? "true" : undefined}
           aria-describedby={[hint ? hintId : "", hasError ? errorId : ""].filter(Boolean).join(" ") || undefined}
-          className="rl-input w-full rounded-xl border border-slate-700/80 bg-slate-900/90 px-4 py-2.5 pr-16 text-base font-medium text-white placeholder:text-slate-500 tabular-nums focus:outline-none disabled:opacity-50"
+          className="rl-input w-full rounded-xl border border-brand-300 bg-white px-4 py-2.5 pr-16 text-base font-medium text-slate-900 placeholder:text-slate-500 tabular-nums focus:border-brand-600 focus:outline-none disabled:opacity-50"
         />
         <span
-          className="pointer-events-none absolute right-3 rounded-md bg-slate-800 px-2 py-0.5 text-xs font-semibold text-brand-300"
+          className="pointer-events-none absolute right-3 rounded-md border border-brand-200 bg-brand-100 px-2 py-0.5 text-xs font-semibold text-brand-800"
           aria-hidden="true"
         >
           USDC
@@ -96,10 +96,10 @@ export function AmountInput({
               disabled={disabled}
               whileTap={{ scale: 0.94 }}
               onClick={() => onChange(preset)}
-              className={`min-h-7 rounded-lg border px-2.5 py-1 text-xs font-medium tabular-nums transition cursor-pointer ${
+              className={`min-h-7 rounded-lg border px-2.5 py-1 text-xs font-semibold tabular-nums transition cursor-pointer ${
                 value === preset
-                  ? "border-brand-400/60 bg-brand-500/20 text-brand-200"
-                  : "border-slate-800 bg-slate-900/70 text-slate-400 hover:border-slate-700 hover:text-slate-200"
+                  ? "border-forest-800 bg-forest-700 text-white shadow-2xs"
+                  : "border-brand-200 bg-white text-slate-700 hover:border-brand-400 hover:bg-brand-50 hover:text-brand-900"
               }`}
             >
               ${preset}
@@ -110,7 +110,7 @@ export function AmountInput({
 
       <div aria-live="polite" className="min-h-5">
         {hasError && (
-          <p id={errorId} className="mt-1 flex items-center gap-1.5 text-xs font-medium text-rose-400">
+          <p id={errorId} className="mt-1 flex items-center gap-1.5 text-xs font-medium text-rose-700">
             <AlertCircle className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             <span>{error}</span>
           </p>
